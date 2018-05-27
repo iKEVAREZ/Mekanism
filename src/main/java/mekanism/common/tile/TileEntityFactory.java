@@ -171,7 +171,7 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 	@Override
 	public boolean upgrade(BaseTier upgradeTier)
 	{
-		if(upgradeTier.ordinal() != tier.ordinal()+1 || tier == FactoryTier.ELITE)
+		if(upgradeTier.ordinal() != tier.ordinal()+1 || tier == FactoryTier.ULTIMATE)
 		{
 			return false;
 		}
@@ -420,6 +420,10 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 			{
 				inputSlots = new int[] {5, 6, 7, 8, 9, 10, 11};
 			}
+			else if(tier == FactoryTier.ULTIMATE)
+			{
+				inputSlots = new int[] {5, 6, 7, 8, 9, 10, 11, 12, 13};
+			}
 
 			for(int id : inputSlots)
 			{
@@ -554,7 +558,10 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 		{
 			return true;
 		}
-
+		else if(tier == FactoryTier.ULTIMATE && slotID >= 14 && slotID <= 22)
+		{
+			return true;
+		}
 		return false;
 	}
 
@@ -594,7 +601,17 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 				return recipeType.getAnyRecipe(itemstack, inventory.get(4), gasTank.getGasType(), infuseStored) != null;
 			}
 		}
-
+		else if(tier == FactoryTier.ULTIMATE)
+		{
+			if(slotID >= 14 && slotID <= 22)
+			{
+				return false;
+			}
+			else if(slotID >= 5 && slotID <= 13)
+			{
+				return recipeType.getAnyRecipe(itemstack, inventory.get(4), gasTank.getGasType(), infuseStored) != null;
+			}
+		}
 		if(slotID == 0)
 		{
 			return itemstack.getItem() == MekanismItems.SpeedUpgrade || itemstack.getItem() == MekanismItems.EnergyUpgrade;

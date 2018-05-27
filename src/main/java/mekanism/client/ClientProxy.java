@@ -189,6 +189,7 @@ import mekanism.common.tile.TileEntitySeismicVibrator;
 import mekanism.common.tile.TileEntitySolarNeutronActivator;
 import mekanism.common.tile.TileEntityTeleporter;
 import mekanism.common.tile.TileEntityThermalEvaporationController;
+import mekanism.common.tile.TileEntityUltimateFactory;
 import mekanism.common.tile.prefab.TileEntityAdvancedElectricMachine;
 import mekanism.common.tile.prefab.TileEntityDoubleElectricMachine;
 import mekanism.common.tile.prefab.TileEntityElectricMachine;
@@ -315,7 +316,8 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.registerTileEntity(TileEntityCrusher.class, "Crusher", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityFactory.class, "SmeltingFactory", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityAdvancedFactory.class, "AdvancedSmeltingFactory", new RenderConfigurableMachine<>());
-		ClientRegistry.registerTileEntity(TileEntityEliteFactory.class, "UltimateSmeltingFactory", new RenderConfigurableMachine<>());
+		ClientRegistry.registerTileEntity(TileEntityEliteFactory.class, "EliteSmeltingFactory", new RenderConfigurableMachine<>());
+		ClientRegistry.registerTileEntity(TileEntityUltimateFactory.class, "UltimateSmeltingFactory", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityPurificationChamber.class, "PurificationChamber", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityEnergizedSmelter.class, "EnergizedSmelter", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityMetallurgicInfuser.class, "MetallurgicInfuser", new RenderConfigurableMachine<>());
@@ -458,7 +460,7 @@ public class ClientProxy extends CommonProxy
 			String resource = "mekanism:" + type.getName();
 			RecipeType recipePointer = null;
 			
-			if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+			if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
 			{
 				recipePointer = RecipeType.values()[0];
 				resource = "mekanism:" + type.getName() + "_" + recipePointer.getName();
@@ -502,7 +504,7 @@ public class ClientProxy extends CommonProxy
 					machineResources.put(resource, model);
 					modelsToAdd.add(model);
 					
-					if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+					if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
 					{
 						if(recipePointer.ordinal() < RecipeType.values().length-1)
 						{
@@ -667,7 +669,7 @@ public class ClientProxy extends CommonProxy
             {
                 String resource = "mekanism:" + type.getName();
 
-                if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+                if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
                 {
                     RecipeType recipe = RecipeType.values()[((ItemBlockMachine)stack.getItem()).getRecipeType(stack)];
                     resource = "mekanism:" + type.getName() + "_" + recipe.getName();

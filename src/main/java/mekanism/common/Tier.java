@@ -217,7 +217,8 @@ public final class Tier
 	{
 		BASIC(3, new ResourceLocation("mekanism", "gui/factory/GuiBasicFactory.png"), BlockStateMachine.MachineType.BASIC_FACTORY),
 		ADVANCED(5, new ResourceLocation("mekanism", "gui/factory/GuiAdvancedFactory.png"), BlockStateMachine.MachineType.ADVANCED_FACTORY),
-		ELITE(7, new ResourceLocation("mekanism", "gui/factory/GuiEliteFactory.png"), BlockStateMachine.MachineType.ELITE_FACTORY);
+		ELITE(7, new ResourceLocation("mekanism", "gui/factory/GuiEliteFactory.png"), BlockStateMachine.MachineType.ELITE_FACTORY),
+		ULTIMATE(9, new ResourceLocation("mekanism", "gui/factory/GuiUltimateFactory.png"), BlockStateMachine.MachineType.ULTIMATE_FACTORY);
 
 		public int processes;
 		public ResourceLocation guiLocation;

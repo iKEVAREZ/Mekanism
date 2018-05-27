@@ -382,6 +382,7 @@ public abstract class BlockMachine extends BlockContainer
 					case BASIC_FACTORY:
 					case ADVANCED_FACTORY:
 					case ELITE_FACTORY:
+					case ULTIMATE_FACTORY:
 						for(RecipeType recipe : RecipeType.values())
 						{
 							ItemStack stack = new ItemStack(this, 1, type.meta);

@@ -77,6 +77,22 @@ public class ContainerFactory extends Container
 				addSlotToContainer(new SlotOutput(tentity, tileEntity.tier.processes+5+i, xAxis, 57));
 			}
 		}
+		else if(tileEntity.tier == FactoryTier.ULTIMATE)
+		{
+			for(int i = 0; i < tileEntity.tier.processes; i++)
+			{
+				int xAxis = 23 + (i*12);
+
+				addSlotToContainer(new Slot(tentity, 5+i, xAxis, 13));
+			}
+
+			for(int i = 0; i < tileEntity.tier.processes; i++)
+			{
+				int xAxis = 23 + (i*12);
+
+				addSlotToContainer(new SlotOutput(tentity, tileEntity.tier.processes+5+i, xAxis, 57));
+			}
+		}
 
 		int slotY;
 
