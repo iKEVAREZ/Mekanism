@@ -46,7 +46,7 @@ public class GuiFactory extends GuiMekanism
 		tileEntity = tentity;
 
 		this.ySize += 11;
-		this.xSize += 50;
+		this.xSize += 38;
 
 		guiElements.add(new GuiRedstoneControl(this, tileEntity, tileEntity.tier.guiLocation));
 		guiElements.add(new GuiSecurityTab(this, tileEntity, tileEntity.tier.guiLocation));
