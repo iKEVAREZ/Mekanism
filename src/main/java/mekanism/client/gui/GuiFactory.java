@@ -45,7 +45,7 @@ public class GuiFactory extends GuiMekanism
 		super(tentity, new ContainerFactory(inventory, tentity));
 		tileEntity = tentity;
 
-		this.ySize += 11;
+		this.ySize += 20;
 		this.xSize += 38;
 
 		guiElements.add(new GuiRedstoneControl(this, tileEntity, tileEntity.tier.guiLocation));
