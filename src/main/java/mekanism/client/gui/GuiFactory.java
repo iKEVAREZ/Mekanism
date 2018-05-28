@@ -35,6 +35,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+import jline.internal.Log;
+
 @SideOnly(Side.CLIENT)
 public class GuiFactory extends GuiMekanism
 {
@@ -91,6 +93,7 @@ public class GuiFactory extends GuiMekanism
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 	}
 
+	@SuppressWarnings("null")
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTick, int mouseX, int mouseY)
 	{
@@ -106,12 +109,34 @@ public class GuiFactory extends GuiMekanism
 		int displayInt;
 
 		displayInt = tileEntity.getScaledEnergyLevel(52);
-		drawTexturedModalRect(guiWidth + 165, guiHeight + 17 + 52 - displayInt, 176, 52 - displayInt, 4, displayInt);
+		drawTexturedModalRect(guiWidth + 203, guiHeight + 17 + 52 - displayInt, 185, 52 - displayInt, 4, displayInt); // pasek pradu
 
-		int xOffset = tileEntity.tier == FactoryTier.BASIC ? 59 : (tileEntity.tier == FactoryTier.ADVANCED ? 
+		/*int xOffset = tileEntity.tier == FactoryTier.BASIC ? 59 : (tileEntity.tier == FactoryTier.ADVANCED ? 
 			39 : 33);
 		int xDistance = tileEntity.tier == FactoryTier.BASIC ? 38 : (tileEntity.tier == FactoryTier.ADVANCED ? 
-			26 : 19);
+			26 : 19);*/
+		
+		int xOffset = 0;
+		int xDistance = 0;
+		
+		switch(tileEntity.tier) {
+		case BASIC:
+			xOffset = 59;
+			xDistance = 38;
+			break;
+		case ADVANCED:
+			xOffset = 39;
+			xDistance = 26;
+			break;
+		case ELITE:
+			xOffset = 33;
+			xDistance = 19;
+			break;
+		case ULTIMATE:
+			xOffset = 33;
+			xDistance = 19;
+			break;
+		}
 		
 		for(int i = 0; i < tileEntity.tier.processes; i++)
 		{
@@ -119,6 +144,7 @@ public class GuiFactory extends GuiMekanism
 
 			displayInt = tileEntity.getScaledProgress(20, i);
 			drawTexturedModalRect(guiWidth + xPos, guiHeight + 33, 176, 52, 8, displayInt);
+			//Log.info(xOffset+"//"+xDistance);
 		}
 
 		if(tileEntity.recipeType.getFuelType() == MachineFuelType.ADVANCED)

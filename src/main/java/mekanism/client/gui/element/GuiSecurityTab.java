@@ -54,7 +54,7 @@ public class GuiSecurityTab extends GuiElement
 	@Override
 	public Rectangle4i getBounds(int guiWidth, int guiHeight)
 	{
-		return new Rectangle4i(guiWidth + 176, guiHeight + 32, 26, 26);
+		return new Rectangle4i(guiWidth + 214, guiHeight + 32, 26, 26);
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class GuiSecurityTab extends GuiElement
 	{
 		mc.renderEngine.bindTexture(RESOURCE);
 
-		guiObj.drawTexturedRect(guiWidth + 176, guiHeight + 32, 0, 0, 26, 26);
+		guiObj.drawTexturedRect(guiWidth + 214, guiHeight + 32, 0, 0, 26, 26);
 
 		SecurityMode mode = getSecurity();
 		SecurityData data = MekanismClient.clientSecurityMap.get(getOwner());
@@ -78,14 +78,14 @@ public class GuiSecurityTab extends GuiElement
 		{
 			if(xAxis >= 179 && xAxis <= 197 && yAxis >= 36 && yAxis <= 54)
 			{
-				guiObj.drawTexturedRect(guiWidth + 179, guiHeight + 36, renderX, 0, 18, 18);
+				guiObj.drawTexturedRect(guiWidth + 217, guiHeight + 36, renderX, 0, 18, 18);
 			}
 			else {
-				guiObj.drawTexturedRect(guiWidth + 179, guiHeight + 36, renderX, 18, 18, 18);
+				guiObj.drawTexturedRect(guiWidth + 217, guiHeight + 36, renderX, 18, 18, 18);
 			}
 		}
 		else {
-			guiObj.drawTexturedRect(guiWidth + 179, guiHeight + 36, renderX, 36, 18, 18);
+			guiObj.drawTexturedRect(guiWidth + 217, guiHeight + 36, renderX, 36, 18, 18);
 		}
 
 		mc.renderEngine.bindTexture(defaultLocation);
