@@ -1,7 +1,6 @@
 package mekanism.common.inventory.container;
 
 import mekanism.api.infuse.InfuseRegistry;
-import mekanism.common.Tier.FactoryTier;
 import mekanism.common.base.IFactory.RecipeType;
 import mekanism.common.inventory.slot.SlotEnergy.SlotDischarge;
 import mekanism.common.inventory.slot.SlotOutput;
@@ -16,53 +15,20 @@ import net.minecraft.item.ItemStack;
 
 import java.util.Arrays;
 
-public class ContainerFactory extends Container
+public class ContainerFactoryUlt extends Container
 {
 	private TileEntityFactory tileEntity;
 
-	public ContainerFactory(InventoryPlayer inventory, TileEntityFactory tentity)
+	public ContainerFactoryUlt(InventoryPlayer inventory, TileEntityFactory tentity)
 	{
 		tileEntity = tentity;
 
 		addSlotToContainer(new SlotDischarge(tentity, 1, 7, 13));
-		addSlotToContainer(new Slot(tentity, 2, 180, 75));
-		addSlotToContainer(new Slot(tentity, 3, 180, 112));
+		addSlotToContainer(new Slot(tentity, 2, 218, 75+15));
+		addSlotToContainer(new Slot(tentity, 3, 218, 112+15));
 		addSlotToContainer(new Slot(tentity, 4, 7, 57));
-
-		if(tileEntity.tier == FactoryTier.BASIC)
-		{
-			for(int i = 0; i < tileEntity.tier.processes; i++)
-			{
-				int xAxis = 55 + (i*38);
-
-				addSlotToContainer(new Slot(tentity, 5+i, xAxis, 13));
-			}
-
-			for(int i = 0; i < tileEntity.tier.processes; i++)
-			{
-				int xAxis = 55 + (i*38);
-
-				addSlotToContainer(new SlotOutput(tentity, tileEntity.tier.processes+5+i, xAxis, 57));
-			}
-		}
-		else if(tileEntity.tier == FactoryTier.ADVANCED)
-		{
-			for(int i = 0; i < tileEntity.tier.processes; i++)
-			{
-				int xAxis = 35 + (i*26);
-
-				addSlotToContainer(new Slot(tentity, 5+i, xAxis, 13));
-			}
-
-			for(int i = 0; i < tileEntity.tier.processes; i++)
-			{
-				int xAxis = 35 + (i*26);
-
-				addSlotToContainer(new SlotOutput(tentity, tileEntity.tier.processes+5+i, xAxis, 57));
-			}
-		}
-		else if(tileEntity.tier == FactoryTier.ELITE)
-		{
+		addSlotToContainer(new Slot(tentity, 5, 181, 171));
+		
 			for(int i = 0; i < tileEntity.tier.processes; i++)
 			{
 				int xAxis = 29 + (i*19);
@@ -76,7 +42,6 @@ public class ContainerFactory extends Container
 
 				addSlotToContainer(new SlotOutput(tentity, tileEntity.tier.processes+5+i, xAxis, 57));
 			}
-		}
 
 		int slotY;
 

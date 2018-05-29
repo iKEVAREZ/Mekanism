@@ -29,21 +29,22 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiSecurityTab extends GuiElement
+public class GuiSecurityTabUlt extends GuiElement
 {
+	private int xRes = 38;
 	public boolean isItem;
 	public EnumHand currentHand;
 	
 	public TileEntity tileEntity;
 
-	public GuiSecurityTab(IGuiWrapper gui, TileEntity tile, ResourceLocation def)
+	public GuiSecurityTabUlt(IGuiWrapper gui, TileEntity tile, ResourceLocation def)
 	{
 		super(MekanismUtils.getResource(ResourceType.GUI_ELEMENT, "GuiSecurityTab.png"), gui, def);
 
 		tileEntity = tile;
 	}
 	
-	public GuiSecurityTab(IGuiWrapper gui, ResourceLocation def, EnumHand hand)
+	public GuiSecurityTabUlt(IGuiWrapper gui, ResourceLocation def, EnumHand hand)
 	{
 		super(MekanismUtils.getResource(ResourceType.GUI_ELEMENT, "GuiSecurityTab.png"), gui, def);
 		
@@ -54,7 +55,7 @@ public class GuiSecurityTab extends GuiElement
 	@Override
 	public Rectangle4i getBounds(int guiWidth, int guiHeight)
 	{
-		return new Rectangle4i(guiWidth + 176, guiHeight + 32, 26, 26);
+		return new Rectangle4i(guiWidth + 176 + xRes, guiHeight + 32, 26, 26);
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class GuiSecurityTab extends GuiElement
 	{
 		mc.renderEngine.bindTexture(RESOURCE);
 
-		guiObj.drawTexturedRect(guiWidth + 176, guiHeight + 32, 0, 0, 26, 26);
+		guiObj.drawTexturedRect(guiWidth + 176 + xRes, guiHeight + 32, 0, 0, 26, 26);
 
 		SecurityMode mode = getSecurity();
 		SecurityData data = MekanismClient.clientSecurityMap.get(getOwner());
@@ -76,16 +77,16 @@ public class GuiSecurityTab extends GuiElement
 
 		if(getOwner() != null && getOwner().equals(mc.player.getUniqueID()) && (data == null || !data.override))
 		{
-			if(xAxis >= 179 && xAxis <= 197 && yAxis >= 36 && yAxis <= 54)
+			if(xAxis >= 179 + xRes && xAxis <= 197 + xRes && yAxis >= 36 && yAxis <= 54)
 			{
-				guiObj.drawTexturedRect(guiWidth + 179, guiHeight + 36, renderX, 0, 18, 18);
+				guiObj.drawTexturedRect(guiWidth + 179 + xRes, guiHeight + 36, renderX, 0, 18, 18);
 			}
 			else {
-				guiObj.drawTexturedRect(guiWidth + 179, guiHeight + 36, renderX, 18, 18, 18);
+				guiObj.drawTexturedRect(guiWidth + 179 + xRes, guiHeight + 36, renderX, 18, 18, 18);
 			}
 		}
 		else {
-			guiObj.drawTexturedRect(guiWidth + 179, guiHeight + 36, renderX, 36, 18, 18);
+			guiObj.drawTexturedRect(guiWidth + 179 + xRes, guiHeight + 36, renderX, 36, 18, 18);
 		}
 
 		mc.renderEngine.bindTexture(defaultLocation);
@@ -96,7 +97,7 @@ public class GuiSecurityTab extends GuiElement
 	{
 		mc.renderEngine.bindTexture(RESOURCE);
 
-		if(xAxis >= 179 && xAxis <= 197 && yAxis >= 36 && yAxis <= 54)
+		if(xAxis >= 179 + xRes && xAxis <= 197 + xRes && yAxis >= 36 && yAxis <= 54)
 		{
 			String securityDisplay = isItem ? SecurityUtils.getSecurityDisplay(getItem(), Side.CLIENT) : SecurityUtils.getSecurityDisplay(tileEntity, Side.CLIENT);
 			String securityText = EnumColor.GREY + LangUtils.localize("gui.security") + ": " + securityDisplay;
@@ -203,7 +204,7 @@ public class GuiSecurityTab extends GuiElement
 		{
 			if(getOwner() != null && mc.player.getUniqueID().equals(getOwner()))
 			{
-				if(xAxis >= 179 && xAxis <= 197 && yAxis >= 36 && yAxis <= 54)
+				if(xAxis >= 179 + xRes && xAxis <= 197 + xRes && yAxis >= 36 && yAxis <= 54)
 				{
 					SecurityMode current = getSecurity();
 					int ordinalToSet = current.ordinal() < (SecurityMode.values().length-1) ? current.ordinal()+1 : 0;

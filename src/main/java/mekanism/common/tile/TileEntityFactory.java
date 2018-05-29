@@ -102,6 +102,9 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 	/** How many recipe ticks have progressed. */
 	public int recipeTicks;
 
+	public int temperature = 23;
+	public static int maxTemperature = 475;
+
 	/** This machine's recipe type. */
 	public RecipeType recipeType = RecipeType.SMELTING;
 
@@ -637,6 +640,9 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 		}
 
 		return false;
+	}
+	public int getScaledTemperature(int height) {
+		return (temperature*height / maxTemperature);
 	}
 
 	public int getScaledProgress(int i, int process)

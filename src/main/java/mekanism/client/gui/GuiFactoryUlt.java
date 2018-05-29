@@ -4,13 +4,13 @@ import java.io.IOException;
 
 import mekanism.api.Coord4D;
 import mekanism.client.gui.element.GuiEnergyInfo;
-import mekanism.client.gui.element.GuiRecipeType;
-import mekanism.client.gui.element.GuiRedstoneControl;
-import mekanism.client.gui.element.GuiSecurityTab;
+import mekanism.client.gui.element.GuiRecipeTypeUlt;
+import mekanism.client.gui.element.GuiRedstoneControlUlt;
+import mekanism.client.gui.element.GuiSecurityTabUlt;
 import mekanism.client.gui.element.GuiSideConfigurationTab;
 import mekanism.client.gui.element.GuiSortingTab;
 import mekanism.client.gui.element.GuiTransporterConfigTab;
-import mekanism.client.gui.element.GuiUpgradeTab;
+import mekanism.client.gui.element.GuiUpgradeTabUlt;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.client.sound.SoundHandler;
 import mekanism.common.Mekanism;
@@ -18,7 +18,7 @@ import mekanism.common.Tier.FactoryTier;
 import mekanism.common.base.IFactory.MachineFuelType;
 import mekanism.common.base.IFactory.RecipeType;
 import mekanism.common.base.TileNetworkList;
-import mekanism.common.inventory.container.ContainerFactory;
+import mekanism.common.inventory.container.ContainerFactoryUlt;
 import mekanism.common.item.ItemGaugeDropper;
 import mekanism.common.network.PacketTileEntity.TileEntityMessage;
 import mekanism.common.tile.TileEntityFactory;
@@ -36,21 +36,22 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class GuiFactory extends GuiMekanism
+public class GuiFactoryUlt extends GuiMekanism
 {
 	public TileEntityFactory tileEntity;
 
-	public GuiFactory(InventoryPlayer inventory, TileEntityFactory tentity)
+	public GuiFactoryUlt(InventoryPlayer inventory, TileEntityFactory tentity)
 	{
-		super(tentity, new ContainerFactory(inventory, tentity));
+		super(tentity, new ContainerFactoryUlt(inventory, tentity));
 		tileEntity = tentity;
 
-		ySize += 11;
+		this.ySize += 37;
+		this.xSize += 38;
 
-		guiElements.add(new GuiRedstoneControl(this, tileEntity, tileEntity.tier.guiLocation));
-		guiElements.add(new GuiSecurityTab(this, tileEntity, tileEntity.tier.guiLocation));
-		guiElements.add(new GuiUpgradeTab(this, tileEntity, tileEntity.tier.guiLocation));
-		guiElements.add(new GuiRecipeType(this, tileEntity, tileEntity.tier.guiLocation));
+		guiElements.add(new GuiRedstoneControlUlt(this, tileEntity, tileEntity.tier.guiLocation));
+		guiElements.add(new GuiSecurityTabUlt(this, tileEntity, tileEntity.tier.guiLocation));
+		guiElements.add(new GuiUpgradeTabUlt(this, tileEntity, tileEntity.tier.guiLocation));
+		guiElements.add(new GuiRecipeTypeUlt(this, tileEntity, tileEntity.tier.guiLocation));
 		guiElements.add(new GuiSideConfigurationTab(this, tileEntity, tileEntity.tier.guiLocation));
 		guiElements.add(new GuiTransporterConfigTab(this, 34, tileEntity, tileEntity.tier.guiLocation));
 		guiElements.add(new GuiSortingTab(this, tileEntity, tileEntity.tier.guiLocation));
@@ -68,9 +69,9 @@ public class GuiFactory extends GuiMekanism
 		int yAxis = (mouseY - (height - ySize) / 2);
 
 		fontRenderer.drawString(tileEntity.getName(), (xSize/2)-(fontRenderer.getStringWidth(tileEntity.getName())/2), 4, 0x404040);
-		fontRenderer.drawString(LangUtils.localize("container.inventory"), 8, (ySize - 93) + 2, 0x404040);
+		fontRenderer.drawString(LangUtils.localize("container.inventory"), 8, (ySize - 120) + 2, 0x404040);
 
-		if(xAxis >= 165 && xAxis <= 169 && yAxis >= 17 && yAxis <= 69)
+		if(xAxis >= 202 && xAxis <= 206 && yAxis >= 17 && yAxis <= 69)
 		{
 			drawHoveringText(MekanismUtils.getEnergyDisplay(tileEntity.getEnergy(), tileEntity.getMaxEnergy()), xAxis, yAxis);
 		}
@@ -105,7 +106,12 @@ public class GuiFactory extends GuiMekanism
 		int displayInt;
 
 		displayInt = tileEntity.getScaledEnergyLevel(52);
-		drawTexturedModalRect(guiWidth + 165, guiHeight + 17 + 52 - displayInt, 176, 52 - displayInt, 4, displayInt);
+		drawTexturedModalRect(guiWidth + 203, guiHeight + 17 + 52 - displayInt, 214, 52 - displayInt, 4, displayInt);
+
+		int displayTemp;
+		displayTemp = tileEntity.getScaledTemperature(87);
+		drawTexturedModalRect(guiWidth + 181, guiHeight + 166 - displayTemp, 214, 166 - displayTemp, 9, displayTemp);
+
 
 
 		int xOffset = tileEntity.tier == FactoryTier.BASIC ? 59 : (tileEntity.tier == FactoryTier.ADVANCED ? 
@@ -118,7 +124,7 @@ public class GuiFactory extends GuiMekanism
 			int xPos = xOffset + (i*xDistance);
 
 			displayInt = tileEntity.getScaledProgress(20, i);
-			drawTexturedModalRect(guiWidth + xPos, guiHeight + 33, 176, 52, 8, displayInt);
+			drawTexturedModalRect(guiWidth + xPos, guiHeight + 33, 214, 52, 8, displayInt);
 		}
 
 		if(tileEntity.recipeType.getFuelType() == MachineFuelType.ADVANCED)

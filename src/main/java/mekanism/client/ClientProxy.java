@@ -33,6 +33,7 @@ import mekanism.client.gui.GuiElectrolyticSeparator;
 import mekanism.client.gui.GuiEnergizedSmelter;
 import mekanism.client.gui.GuiEnergyCube;
 import mekanism.client.gui.GuiEnrichmentChamber;
+import mekanism.client.gui.GuiFactoryUlt;
 import mekanism.client.gui.GuiFactory;
 import mekanism.client.gui.GuiFluidTank;
 import mekanism.client.gui.GuiFluidicPlenisher;
@@ -243,11 +244,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy
 {
-	public static Map<String, ModelResourceLocation> machineResources = new HashMap<>();
-	public static Map<String, ModelResourceLocation> basicResources = new HashMap<>();
-	public static Map<String, ModelResourceLocation> transmitterResources = new HashMap<>();
-	
-	public static final String[] CUSTOM_RENDERS = new String[] {"fluid_tank", "bin_basic", "bin_advanced", "bin_elite", "bin_ultimate", 
+	private static Map<String, ModelResourceLocation> machineResources = new HashMap<>();
+	private static Map<String, ModelResourceLocation> basicResources = new HashMap<>();
+	private static Map<String, ModelResourceLocation> transmitterResources = new HashMap<>();
+
+	private static final String[] CUSTOM_RENDERS = new String[] {"fluid_tank", "bin_basic", "bin_advanced", "bin_elite", "bin_ultimate",
 		"Jetpack", "FreeRunners", "AtomicDisassembler", "ScubaTank", "GasMask", "ArmoredJetpack", "Flamethrower", "personal_chest",
 		"solar_neutron_activator", "chemical_dissolution_chamber", "chemical_crystallizer", "seismic_vibrator", "security_desk",
 		"quantum_entangloporter", "resistive_heater", "EnergyCube", "digital_miner", "bin_creative"};
@@ -938,6 +939,8 @@ public class ClientProxy extends CommonProxy
 				return new GuiSecurityDesk(player.inventory, (TileEntitySecurityDesk)tileEntity);
 			case 58:
 				return new GuiFuelwoodHeater(player.inventory, (TileEntityFuelwoodHeater)tileEntity);
+			case 59:
+				return new GuiFactoryUlt(player.inventory , (TileEntityUltimateFactory)tileEntity);
 		}
 		
 		return null;
