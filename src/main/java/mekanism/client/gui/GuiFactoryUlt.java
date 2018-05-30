@@ -1,6 +1,9 @@
 package mekanism.client.gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import mekanism.api.Coord4D;
 import mekanism.client.gui.element.GuiEnergyInfo;
@@ -68,8 +71,18 @@ public class GuiFactoryUlt extends GuiMekanism
 		int xAxis = (mouseX - (width - xSize) / 2);
 		int yAxis = (mouseY - (height - ySize) / 2);
 
-		fontRenderer.drawString(tileEntity.getName(), (xSize/2)-(fontRenderer.getStringWidth(tileEntity.getName())/2), 4, 0x404040);
+		fontRenderer.drawString(tileEntity.getName(), (xSize/2)-(fontRenderer.getStringWidth(tileEntity.getName())/2), 3, 0x404040);
 		fontRenderer.drawString(LangUtils.localize("container.inventory"), 8, (ySize - 120) + 2, 0x404040);
+
+		if(xAxis >= 181 && xAxis <= 189 && yAxis >= 79 && yAxis <= 165) {
+			List<String> text = new ArrayList<String>(Arrays.asList("Current Temp: "+tileEntity.temperature+"℃","Max Temp: "+tileEntity.maxTemperature+"℃"));
+			drawHoveringText(text, xAxis, yAxis);
+		}
+
+		if(xAxis >= 173 && xAxis <= 175 && yAxis >= 79 && yAxis <= 165) {
+			List<String> text = new ArrayList<String>(Arrays.asList("Coolant: "+tileEntity.aoCoolant+"/"+tileEntity.maxCoolant+"mB"));
+			drawHoveringText(text, xAxis, yAxis);
+		}
 
 		if(xAxis >= 202 && xAxis <= 206 && yAxis >= 17 && yAxis <= 69)
 		{
@@ -109,10 +122,12 @@ public class GuiFactoryUlt extends GuiMekanism
 		drawTexturedModalRect(guiWidth + 203, guiHeight + 17 + 52 - displayInt, 214, 52 - displayInt, 4, displayInt);
 
 		int displayTemp;
-		displayTemp = tileEntity.getScaledTemperature(87);
+		displayTemp = tileEntity.getScaled(87, tileEntity.temperature, tileEntity.maxTemperature);
 		drawTexturedModalRect(guiWidth + 181, guiHeight + 166 - displayTemp, 214, 166 - displayTemp, 9, displayTemp);
 
-
+		int displayCoolant;
+		displayCoolant = tileEntity.getScaled(87, tileEntity.aoCoolant, tileEntity.maxCoolant);
+		drawTexturedModalRect(guiWidth + 173, guiHeight + 166 - displayCoolant, 223, 166 - displayCoolant, 3, displayCoolant);
 
 		int xOffset = tileEntity.tier == FactoryTier.BASIC ? 59 : (tileEntity.tier == FactoryTier.ADVANCED ? 
 			39 : 33);

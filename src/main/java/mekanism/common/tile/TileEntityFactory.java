@@ -60,8 +60,10 @@ import mekanism.common.util.LangUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.StackUtils;
 import mekanism.common.util.StatUtils;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -104,6 +106,8 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 
 	public int temperature = 23;
 	public static int maxTemperature = 475;
+	public int aoCoolant = 1000;
+	public static int maxCoolant = 16000;
 
 	/** This machine's recipe type. */
 	public RecipeType recipeType = RecipeType.SMELTING;
@@ -641,9 +645,11 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 
 		return false;
 	}
-	public int getScaledTemperature(int height) {
-		return (temperature*height / maxTemperature);
+	public int getScaled(int height, int fval, int sval) {
+		return (fval*height / sval);
 	}
+
+
 
 	public int getScaledProgress(int i, int process)
 	{
@@ -663,6 +669,34 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 	public int getScaledRecipeProgress(int i)
 	{
 		return recipeTicks*i / RECIPE_TICKS_REQUIRED;
+	}
+
+	public void JEBUT() {
+		world.createExplosion(new EntityTNTPrimed(world, pos.getX(), pos.getY(), pos.getZ(),null), pos.getX(), pos.getY(), pos.getZ(), 3.0F, false);
+		world.setBlockToAir(pos);
+
+		BlockPos xd = new BlockPos(pos.getX()+1, pos.getY(), pos.getZ());
+		world.setBlockToAir(xd);
+		BlockPos xd1 = new BlockPos(pos.getX()-1, pos.getY(), pos.getZ());
+		world.setBlockToAir(xd1);
+		BlockPos xd2 = new BlockPos(pos.getX(), pos.getY()-1, pos.getZ());
+		world.setBlockToAir(xd2);
+		BlockPos xd3 = new BlockPos(pos.getX(), pos.getY()+1, pos.getZ());
+		world.setBlockToAir(xd3);
+		BlockPos xd4 = new BlockPos(pos.getX(), pos.getY(), pos.getZ()+1);
+		world.setBlockToAir(xd4);
+		BlockPos xd5 = new BlockPos(pos.getX(), pos.getY(), pos.getZ()-1);
+		world.setBlockToAir(xd5);
+	}
+
+	public int getActiveFieldsNumber() {
+		int ret = 0;
+		for (int i = 0; i >9; i++){
+			if (canOperate(5+i, 9+5+i)) {
+				ret++;
+			}
+		}
+		return 9;
 	}
 
 	public boolean canOperate(int inputSlot, int outputSlot)

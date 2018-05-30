@@ -10,6 +10,11 @@ import mekanism.common.tile.component.TileComponentEjector;
 import mekanism.common.util.InventoryUtils;
 
 public class TileEntityUltimateFactory extends TileEntityFactory {
+
+    private int i;
+    private int tempToStop = 300;
+    private static int maxTemperatureRise = 9;
+
     public TileEntityUltimateFactory() {
         super(FactoryTier.ULTIMATE, BlockStateMachine.MachineType.ULTIMATE_FACTORY);
 
@@ -38,7 +43,35 @@ public class TileEntityUltimateFactory extends TileEntityFactory {
         super.onUpdate();
 
         if (getActive()) {
-
+            if (super.aoCoolant > 0) {
+                if (i % 8 == 0) {
+                    tempToStop += (super.getActiveFieldsNumber() * maxTemperatureRise);
+                    if (super.temperature < tempToStop) {
+                        super.temperature++;
+                        super.aoCoolant -= 10;
+                    } else if(i % 16 == 0) {
+                        super.temperature -= 1;
+                    }
+                }
+            } else {
+                if (i % 4 == 0) {
+                    tempToStop += (super.getActiveFieldsNumber() * 3 * maxTemperatureRise);
+                    if (super.temperature < tempToStop)
+                        super.temperature++;
+                }
+            }
+        } else {
+            if (i % 16 == 0) {
+                if (super.temperature > 23) {
+                    super.temperature -= 3;
+                }
+            }
         }
+
+        if (super.temperature >= maxTemperature) {
+            JEBUT();
+        }
+
+        i++;
     }
 }
