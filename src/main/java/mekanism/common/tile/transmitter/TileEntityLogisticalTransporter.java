@@ -436,13 +436,13 @@ public class TileEntityLogisticalTransporter extends TileEntityTransmitter<TileE
 
 	public double getCost()
 	{
-		return (double)TransporterTier.ULTIMATE.speed / (double)tier.speed;
+		return (double)TransporterTier.CREATIVE.speed / (double)tier.speed;
 	}
 	
 	@Override
 	public boolean upgrade(int tierOrdinal)
 	{
-		if(tier.ordinal() < BaseTier.ULTIMATE.ordinal() && tierOrdinal == tier.ordinal()+1)
+		if(tier.ordinal() < BaseTier.CREATIVE.ordinal() && tierOrdinal == tier.ordinal()+1)
 		{
 			tier = TransporterTier.values()[tier.ordinal()+1];
 			

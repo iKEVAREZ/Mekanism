@@ -291,7 +291,7 @@ public class TileEntityPressurizedTube extends TileEntityTransmitter<IGasHandler
 	@Override
 	public boolean upgrade(int tierOrdinal)
 	{
-		if(tier.ordinal() < BaseTier.ULTIMATE.ordinal() && tierOrdinal == tier.ordinal()+1)
+		if(tier.ordinal() < BaseTier.CREATIVE.ordinal() && tierOrdinal == tier.ordinal()+1)
 		{
 			tier = TubeTier.values()[tier.ordinal()+1];
 			
