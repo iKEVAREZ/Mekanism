@@ -73,7 +73,7 @@ public class RecipeUtils
 	
 	private static boolean isFactory(ItemStack stack)
 	{
-		return BlockStateMachine.MachineType.get(stack) == BlockStateMachine.MachineType.BASIC_FACTORY || BlockStateMachine.MachineType.get(stack) == BlockStateMachine.MachineType.ADVANCED_FACTORY || BlockStateMachine.MachineType.get(stack) == BlockStateMachine.MachineType.ELITE_FACTORY;
+		return BlockStateMachine.MachineType.get(stack) == BlockStateMachine.MachineType.BASIC_FACTORY || BlockStateMachine.MachineType.get(stack) == BlockStateMachine.MachineType.ADVANCED_FACTORY || BlockStateMachine.MachineType.get(stack) == BlockStateMachine.MachineType.ELITE_FACTORY || BlockStateMachine.MachineType.get(stack) == BlockStateMachine.MachineType.ULTIMATE_FACTORY;
 	}
 	
 	public static ItemStack getCraftingResult(InventoryCrafting inv, ItemStack toReturn)

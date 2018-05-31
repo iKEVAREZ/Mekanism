@@ -97,10 +97,10 @@ import buildcraft.api.tools.IToolWrench;
  * 0:5: Basic Factory
  * 0:6: Advanced Factory
  * 0:7: Elite Factory
- * 0:8: Metallurgic Infuser
- * 0:9: Purification Chamber
- * 0:10: Energized Smelter
- * 0:11: Teleporter
+ * 0:8: Ultimate Factory
+ * 0:9: Metallurgic Infuser
+ * 0:10: Purification Chamber
+ * 0:11: Energized Smelter
  * 0:12: Electric Pump
  * 0:13: Electric Chest
  * 0:14: Chargepad
@@ -128,6 +128,7 @@ import buildcraft.api.tools.IToolWrench;
  * 2:4: Resistive Heater
  * 2:5: Formulaic Assemblicator
  * 2:6: Fuelwood Heater
+ * 2:7: Teleporter
  * 
  * @author AidanBrady
  *
@@ -382,6 +383,7 @@ public abstract class BlockMachine extends BlockContainer
 					case BASIC_FACTORY:
 					case ADVANCED_FACTORY:
 					case ELITE_FACTORY:
+					case ULTIMATE_FACTORY:
 						for(RecipeType recipe : RecipeType.values())
 						{
 							ItemStack stack = new ItemStack(this, 1, type.meta);
