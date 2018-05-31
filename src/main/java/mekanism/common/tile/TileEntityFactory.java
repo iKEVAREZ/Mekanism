@@ -39,6 +39,7 @@ import mekanism.common.base.TileNetworkList;
 import mekanism.common.block.states.BlockStateMachine;
 import mekanism.common.block.states.BlockStateMachine.MachineType;
 import mekanism.common.capabilities.Capabilities;
+import mekanism.common.config.MekanismConfig.general;
 import mekanism.common.integration.computer.IComputerIntegration;
 import mekanism.common.network.PacketTileEntity.TileEntityMessage;
 import mekanism.common.recipe.RecipeHandler;
@@ -68,6 +69,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -77,6 +79,9 @@ import javax.annotation.Nonnull;
 
 public class TileEntityFactory extends TileEntityMachine implements IComputerIntegration, ISideConfiguration, IGasHandler, ITubeConnection, ISpecialConfigData, ITierUpgradeable, ISustainedData
 {
+	/** Whether or not the FACTORY was detonated */
+	public boolean wasDetonated = false;
+
 	/** This Factory's tier. */
 	public FactoryTier tier;
 
@@ -671,22 +676,10 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 		return recipeTicks*i / RECIPE_TICKS_REQUIRED;
 	}
 
-	public void JEBUT() {
-		world.createExplosion(new EntityTNTPrimed(world, pos.getX(), pos.getY(), pos.getZ(),null), pos.getX(), pos.getY(), pos.getZ(), 3.0F, false);
-		world.setBlockToAir(pos);
-
-		BlockPos xd = new BlockPos(pos.getX()+1, pos.getY(), pos.getZ());
-		world.setBlockToAir(xd);
-		BlockPos xd1 = new BlockPos(pos.getX()-1, pos.getY(), pos.getZ());
-		world.setBlockToAir(xd1);
-		BlockPos xd2 = new BlockPos(pos.getX(), pos.getY()-1, pos.getZ());
-		world.setBlockToAir(xd2);
-		BlockPos xd3 = new BlockPos(pos.getX(), pos.getY()+1, pos.getZ());
-		world.setBlockToAir(xd3);
-		BlockPos xd4 = new BlockPos(pos.getX(), pos.getY(), pos.getZ()+1);
-		world.setBlockToAir(xd4);
-		BlockPos xd5 = new BlockPos(pos.getX(), pos.getY(), pos.getZ()-1);
-		world.setBlockToAir(xd5);
+	public void detonate()
+	{
+		world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), general.factoryBlastRadius, true);
+		wasDetonated = true;
 	}
 
 	public int getActiveFieldsNumber() {
