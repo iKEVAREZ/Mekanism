@@ -253,7 +253,7 @@ public class TileEntityThermodynamicConductor extends TileEntityTransmitter<IHea
 	@Override
 	public boolean upgrade(int tierOrdinal)
 	{
-		if(tier.ordinal() < BaseTier.CREATIVE.ordinal() && tierOrdinal == tier.ordinal()+1)
+		if(tier.ordinal() < BaseTier.ULTIMATE.ordinal() && tierOrdinal == tier.ordinal()+1)
 		{
 			tier = ConductorTier.values()[tier.ordinal()+1];
 			

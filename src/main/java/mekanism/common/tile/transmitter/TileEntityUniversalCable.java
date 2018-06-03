@@ -385,7 +385,7 @@ public class TileEntityUniversalCable extends TileEntityTransmitter<EnergyAccept
 	@Override
 	public boolean upgrade(int tierOrdinal)
 	{
-		if(tier.ordinal() < BaseTier.CREATIVE.ordinal() && tierOrdinal == tier.ordinal()+1)
+		if(tier.ordinal() < BaseTier.ULTIMATE.ordinal() && tierOrdinal == tier.ordinal()+1)
 		{
 			tier = CableTier.values()[tier.ordinal()+1];
 			

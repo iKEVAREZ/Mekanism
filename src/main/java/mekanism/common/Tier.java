@@ -256,8 +256,7 @@ public final class Tier
 		BASIC(3200),
 		ADVANCED(12800),
 		ELITE(64000),
-		ULTIMATE(320000),
-		CREATIVE(Integer.MAX_VALUE);
+		ULTIMATE(320000);
 
 		public int cableCapacity;
 		private int baseCapacity;
@@ -310,8 +309,7 @@ public final class Tier
 		BASIC(1000, 100),
 		ADVANCED(4000, 400),
 		ELITE(16000, 1600),
-		ULTIMATE(64000, 6400),
-		CREATIVE(Integer.MAX_VALUE, Integer.MAX_VALUE/2);
+		ULTIMATE(64000, 6400);
 
 		public int pipeCapacity;
 		private int baseCapacity;
@@ -371,8 +369,7 @@ public final class Tier
 		BASIC(256, 64),
 		ADVANCED(1024, 256),
 		ELITE(4096, 1024),
-		ULTIMATE(16384, 4096),
-		CREATIVE(Integer.MAX_VALUE, Integer.MAX_VALUE/2);
+		ULTIMATE(16384, 4096);
 
 		public int tubeCapacity;
 		private int baseCapacity;
@@ -432,8 +429,7 @@ public final class Tier
 		BASIC(1, 5),
 		ADVANCED(16, 10),
 		ELITE(32, 20),
-		ULTIMATE(64, 50),
-		CREATIVE(64, Integer.MAX_VALUE);
+		ULTIMATE(64, 50);
 
 		public int pullAmount;
 		private int basePull;
@@ -493,8 +489,7 @@ public final class Tier
 		BASIC(5, 1, 10, new ColourRGBA(0.2, 0.2, 0.2, 1)),
 		ADVANCED(5, 1, 400, new ColourRGBA(0.2, 0.2, 0.2, 1)),
 		ELITE(5, 1, 8000, new ColourRGBA(0.2, 0.2, 0.2, 1)),
-		ULTIMATE(5, 1, 100000, new ColourRGBA(0.2, 0.2, 0.2, 1)),
-		CREATIVE(5, 1, Integer.MAX_VALUE, new ColourRGBA(0.2, 0.2, 0.2, 1));
+		ULTIMATE(5, 1, 100000, new ColourRGBA(0.2, 0.2, 0.2, 1));
 
 		public double inverseConduction;
 		private double baseConduction;
