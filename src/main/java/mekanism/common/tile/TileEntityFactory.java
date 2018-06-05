@@ -169,7 +169,12 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 		super("null", machine.blockName, 0, 0, 0);
 
 		tier = type;
-		inventory = NonNullList.withSize(5+type.processes*2, ItemStack.EMPTY);
+		if (type != FactoryTier.ULTIMATE) {
+			inventory = NonNullList.withSize(5+type.processes*2, ItemStack.EMPTY);
+		} else {
+			inventory = NonNullList.withSize(5+type.processes*2+1, ItemStack.EMPTY);
+		}
+
 		progress = new int[type.processes];
 		isActive = false;
 		cachedRecipe = new MachineRecipe[tier.processes];
