@@ -38,6 +38,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+import static mekanism.common.util.UnitDisplayUtils.degree;
+
 @SideOnly(Side.CLIENT)
 public class GuiFactoryUlt extends GuiMekanism
 {
@@ -75,7 +77,7 @@ public class GuiFactoryUlt extends GuiMekanism
 		fontRenderer.drawString(LangUtils.localize("container.inventory"), 8, (ySize - 120) + 2, 0x404040);
 
 		if(xAxis >= 181 && xAxis <= 189 && yAxis >= 79 && yAxis <= 165) {
-			List<String> text = new ArrayList<String>(Arrays.asList("Current Temp: "+tileEntity.temperature+"℃","Max Temp: "+tileEntity.maxTemperature+"℃"));
+			List<String> text = new ArrayList<String>(Arrays.asList("Current Temp: "+tileEntity.temperature+degree+"C","Max Temp: "+tileEntity.maxTemperature+degree+"C"));
 			drawHoveringText(text, xAxis, yAxis);
 		}
 
