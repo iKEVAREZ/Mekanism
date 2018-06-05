@@ -150,7 +150,7 @@ public class CommonProxy implements IGuiProvider
 		GameRegistry.registerTileEntity(TileEntitySecurityDesk.class, "SecurityDesk");
 		GameRegistry.registerTileEntity(TileEntityQuantumEntangloporter.class, "QuantumEntangloporter");
 		GameRegistry.registerTileEntity(TileEntityChemicalDissolutionChamber.class, "ChemicalDissolutionChamber");
-		
+
 		//transmitters
 		GameRegistry.registerTileEntity(TileEntityMechanicalPipe.class, "MechanicalPipe");
 		GameRegistry.registerTileEntity(TileEntityUniversalCable.class, "UniversalCable");
@@ -160,7 +160,7 @@ public class CommonProxy implements IGuiProvider
 		GameRegistry.registerTileEntity(TileEntityDiversionTransporter.class, "DiversionTransporter");
 		GameRegistry.registerTileEntity(TileEntityRestrictiveTransporter.class, "RestrictiveTransporter");
 	}
-	
+
 	public void handleTeleporterUpdate(PortableTeleporterMessage message) {}
 
 	/**
@@ -177,7 +177,7 @@ public class CommonProxy implements IGuiProvider
 	 * Register and load client-only item render information.
 	 */
 	public void registerItemRenders() {}
-	
+
 	/**
 	 * Register and load client-only block render information.
 	 */
@@ -198,6 +198,7 @@ public class CommonProxy implements IGuiProvider
 		general.spawnBabySkeletons = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "SpawnBabySkeletons", true).getBoolean();
 		general.obsidianTNTDelay = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "ObsidianTNTDelay", 100).getInt();
 		general.obsidianTNTBlastRadius = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "ObsidianTNTBlastRadius", 12).getInt();
+		general.factoryBlastRadius = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "FactoryBlastRadius", 2).getInt();
 		general.UPDATE_DELAY = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "ClientUpdateDelay", 10).getInt();
 		general.osmiumPerChunk = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "OsmiumPerChunk", 12).getInt();
 		general.copperPerChunk = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "CopperPerChunk", 16).getInt();
@@ -245,12 +246,12 @@ public class CommonProxy implements IGuiProvider
 		general.allowProtection = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "AllowProtection", true).getBoolean();
 		general.portableTeleporterDelay = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "PortableTeleporterDelay", 0).getInt();
 		general.quantumEntangloporterEnergyTransfer = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "QuantumEntangloporterEnergyTransfer", 16000000D).getDouble();
-		
+
 		general.blacklistIC2 = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "BlacklistIC2Power", false, "Disables IC2 power integration. Requires world restart (server-side option in SMP)").getBoolean();
 		general.blacklistRF = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "BlacklistRFPower", false).getBoolean();
 		general.blacklistTesla = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "BlacklistTeslaPower", false).getBoolean();
 		general.blacklistForge = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "BlacklistForgePower", false).getBoolean();
-		
+
 		String s = Mekanism.configuration.get(Configuration.CATEGORY_GENERAL, "EnergyType", "J", null, new String[]{"J", "RF", "EU", "T"}).getString();
 
 		if(s != null)
@@ -302,12 +303,12 @@ public class CommonProxy implements IGuiProvider
 		general.laserRange = Mekanism.configuration.get("general", "LaserRange", 64).getInt();
 		general.laserEnergyNeededPerHardness = Mekanism.configuration.get("general", "LaserDiggingEnergy", 100000).getInt();
 		general.destroyDisabledBlocks = Mekanism.configuration.get("general", "DestroyDisabledBlocks", true).getBoolean();
-		
+
 		for(MachineType type : BlockStateMachine.MachineType.getValidMachines())
 		{
 			general.machinesManager.setEntry(type.blockName, Mekanism.configuration.get("machines", type.blockName + "Enabled", true).getBoolean());
 		}
-		
+
 		usage.enrichmentChamberUsage = Mekanism.configuration.get("usage", "EnrichmentChamberUsage", 50D).getDouble();
 		usage.osmiumCompressorUsage = Mekanism.configuration.get("usage", "OsmiumCompressorUsage", 100D).getDouble();
 		usage.combinerUsage = Mekanism.configuration.get("usage", "CombinerUsage", 50D).getDouble();
@@ -337,7 +338,7 @@ public class CommonProxy implements IGuiProvider
 		usage.teleporterDimensionPenalty = Mekanism.configuration.get("usage", "TeleporterDimensionPenalty", 10000).getInt();
 
 		Tier.loadConfig();
-		
+
 		if(Mekanism.configuration.hasChanged())
 		{
 			Mekanism.configuration.save();
@@ -347,7 +348,7 @@ public class CommonProxy implements IGuiProvider
 	/**
 	 * Set up and load the utilities this mod uses.
 	 */
-	public void init() 
+	public void init()
 	{
 		MinecraftForge.EVENT_BUS.register(Mekanism.worldTickHandler);
 	}
@@ -359,12 +360,12 @@ public class CommonProxy implements IGuiProvider
 	{
 		return false;
 	}
-	
+
 	/**
 	 * Adds block hit effects on the client side.
 	 */
 	public void addHitEffects(Coord4D coord, RayTraceResult mop) {}
-	
+
 	/**
 	 * Does a generic creation animation, starting from the rendering block.
 	 */
@@ -421,7 +422,7 @@ public class CommonProxy implements IGuiProvider
 				{
 					return new ContainerNull();
 				}
-				
+
 				return null;
 			case 15:
 				return new ContainerAdvancedElectricMachine(player.inventory, (TileEntityAdvancedElectricMachine)tileEntity);
@@ -438,7 +439,7 @@ public class CommonProxy implements IGuiProvider
 				{
 					return new ContainerRobitMain(player.inventory, robit);
 				}
-				
+
 				return null;
 			case 22:
 				robit = (EntityRobit)world.getEntityByID(pos.getX());
@@ -447,7 +448,7 @@ public class CommonProxy implements IGuiProvider
 				{
 					return new ContainerRobitCrafting(player.inventory, robit);
 				}
-				
+
 				return null;
 			case 23:
 				robit = (EntityRobit)world.getEntityByID(pos.getX());
@@ -456,16 +457,16 @@ public class CommonProxy implements IGuiProvider
 				{
 					return new ContainerRobitInventory(player.inventory, robit);
 				}
-				
+
 				return null;
 			case 24:
 				robit = (EntityRobit)world.getEntityByID(pos.getX());
-				
+
 				if(robit != null)
 				{
 					return new ContainerRobitSmelting(player.inventory, robit);
 				}
-				
+
 				return null;
 			case 25:
 				robit = (EntityRobit)world.getEntityByID(pos.getX());
@@ -474,7 +475,7 @@ public class CommonProxy implements IGuiProvider
 				{
 					return new ContainerRobitRepair(player.inventory, robit);
 				}
-				
+
 				return null;
 			case 26:
 				return new ContainerNull(player, (TileEntityContainerBlock)tileEntity);
@@ -577,7 +578,7 @@ public class CommonProxy implements IGuiProvider
 		else {
 			MekanismAPI.addBoxBlacklist(Blocks.MOB_SPAWNER, 0);
 		}
-		
+
 		BlockStateMachine.MachineType.updateAllUsages();
 
 		if(fromPacket)
@@ -585,8 +586,8 @@ public class CommonProxy implements IGuiProvider
 			Mekanism.logger.info("Received config from server.");
 		}
 	}
-	
-	private WeakReference<EntityPlayer> createNewPlayer(WorldServer world) 
+
+	private WeakReference<EntityPlayer> createNewPlayer(WorldServer world)
 	{
 		EntityPlayer player = FakePlayerFactory.get(world, Mekanism.gameProfile);
 
@@ -596,20 +597,20 @@ public class CommonProxy implements IGuiProvider
 	private WeakReference<EntityPlayer> createNewPlayer(WorldServer world, double x, double y, double z)
 	{
 		EntityPlayer player = FakePlayerFactory.get(world, Mekanism.gameProfile);
-		
+
 		player.posX = x;
 		player.posY = y;
 		player.posZ = z;
-		
+
 		return new WeakReference<>(player);
 	}
 
-	public final WeakReference<EntityPlayer> getDummyPlayer(WorldServer world) 
+	public final WeakReference<EntityPlayer> getDummyPlayer(WorldServer world)
 	{
-		if(dummyPlayer.get() == null) 
+		if(dummyPlayer.get() == null)
 		{
 			dummyPlayer = createNewPlayer(world);
-		} 
+		}
 		else {
 			dummyPlayer.get().world = world;
 		}
@@ -617,12 +618,12 @@ public class CommonProxy implements IGuiProvider
 		return dummyPlayer;
 	}
 
-	public final WeakReference<EntityPlayer> getDummyPlayer(WorldServer world, double x, double y, double z) 
+	public final WeakReference<EntityPlayer> getDummyPlayer(WorldServer world, double x, double y, double z)
 	{
-		if(dummyPlayer.get() == null) 
+		if(dummyPlayer.get() == null)
 		{
 			dummyPlayer = createNewPlayer(world, x, y, z);
-		} 
+		}
 		else {
 			dummyPlayer.get().world = world;
 			dummyPlayer.get().posX = x;
@@ -637,7 +638,7 @@ public class CommonProxy implements IGuiProvider
 	{
 		return context.getServerHandler().player;
 	}
-	
+
 	public void handlePacket(Runnable runnable, EntityPlayer player)
 	{
 		if(player instanceof EntityPlayerMP)
@@ -645,7 +646,7 @@ public class CommonProxy implements IGuiProvider
 			((WorldServer)player.world).addScheduledTask(runnable);
 		}
 	}
-	
+
 	public int getGuiId(Block block, int metadata)
 	{
 		if(MachineType.get(block, metadata) != null)
@@ -660,7 +661,7 @@ public class CommonProxy implements IGuiProvider
 		{
 			return 8;
 		}
-		
+
 		return -1;
 	}
 

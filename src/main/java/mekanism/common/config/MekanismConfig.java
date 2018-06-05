@@ -8,7 +8,7 @@ public class MekanismConfig
 	public static class general
 	{
 		public static TypeConfigManager machinesManager = new TypeConfigManager();
-		
+
 		public static boolean updateNotifications = true;
 		public static boolean controlCircuitOreDict = true;
 		public static boolean logPackets = false;
@@ -18,6 +18,7 @@ public class MekanismConfig
 		public static boolean enableWorldRegeneration = true;
 		public static boolean spawnBabySkeletons = true;
 		public static int obsidianTNTBlastRadius = 12;
+		public static int factoryBlastRadius = 2;
 		public static int osmiumPerChunk = 12;
 		public static int copperPerChunk = 16;
 		public static int tinPerChunk = 14;
@@ -125,7 +126,7 @@ public class MekanismConfig
 	public static class generators
 	{
 		public static TypeConfigManager generatorsManager = new TypeConfigManager();
-		
+
 		public static double advancedSolarGeneration;
 		public static double bioGeneration;
 		public static double heatGeneration;
@@ -138,12 +139,12 @@ public class MekanismConfig
 
 		public static int windGenerationMinY;
 		public static int windGenerationMaxY;
-		
+
 		public static int turbineBladesPerCoil;
 		public static double turbineVentGasFlow;
 		public static double turbineDisperserGasFlow;
 		public static int condenserRate;
-		
+
 		public static double energyPerFusionFuel;
 	}
 

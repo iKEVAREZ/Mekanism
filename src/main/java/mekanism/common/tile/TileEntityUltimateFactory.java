@@ -69,7 +69,17 @@ public class TileEntityUltimateFactory extends TileEntityFactory {
         }
 
         if (super.temperature >= maxTemperature) {
-            JEBUT();
+            if(!world.isRemote)
+            {
+                world.setBlockToAir(pos);
+                detonate();
+            }
+            else {
+                if(wasDetonated)
+                {
+                    world.setBlockToAir(pos);
+                }
+            }
         }
 
         i++;
