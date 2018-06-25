@@ -27,12 +27,14 @@ public class UnitDisplayUtils
 		}
 	}
 
+	static char degree = '\u00B0';
+
 	public enum TemperatureUnit
 	{
 		KELVIN("Kelvin", "K", 0, 1),
-		CELSIUS("Celsius", "°C", 273.15, 1),
+		CELSIUS("Celsius", degree+"C", 273.15, 1),
 		RANKINE("Rankine", "R", 0, 9D/5D),
-		FAHRENHEIT("Fahrenheit", "°F", 459.67, 9D/5D),
+		FAHRENHEIT("Fahrenheit", degree+"F", 459.67, 9D/5D),
 		AMBIENT("Ambient", "+STP", 300, 1);
 
 		public String name;
