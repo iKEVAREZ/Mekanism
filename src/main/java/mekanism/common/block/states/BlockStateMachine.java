@@ -52,6 +52,7 @@ import mekanism.common.tile.TileEntityRotaryCondensentrator;
 import mekanism.common.tile.TileEntitySeismicVibrator;
 import mekanism.common.tile.TileEntitySolarNeutronActivator;
 import mekanism.common.tile.TileEntityTeleporter;
+import mekanism.common.tile.TileEntityUltimateFactory;
 import mekanism.common.util.LangUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -127,10 +128,10 @@ public class BlockStateMachine extends ExtendedBlockState
 		BASIC_FACTORY(MachineBlock.MACHINE_BLOCK_1, 5, "Factory", 11, TileEntityFactory.class, true, false, true, Plane.HORIZONTAL, true, Tier.FactoryTier.BASIC),
 		ADVANCED_FACTORY(MachineBlock.MACHINE_BLOCK_1, 6, "Factory", 11, TileEntityAdvancedFactory.class, true, false, true, Plane.HORIZONTAL, true, Tier.FactoryTier.ADVANCED),
 		ELITE_FACTORY(MachineBlock.MACHINE_BLOCK_1, 7, "Factory", 11, TileEntityEliteFactory.class, true, false, true, Plane.HORIZONTAL, true, Tier.FactoryTier.ELITE),
-		METALLURGIC_INFUSER(MachineBlock.MACHINE_BLOCK_1, 8, "MetallurgicInfuser", 12, TileEntityMetallurgicInfuser.class, true, true, true, Plane.HORIZONTAL, false),
-		PURIFICATION_CHAMBER(MachineBlock.MACHINE_BLOCK_1, 9, "PurificationChamber", 15, TileEntityPurificationChamber.class, true, false, true, Plane.HORIZONTAL, true),
-		ENERGIZED_SMELTER(MachineBlock.MACHINE_BLOCK_1, 10, "EnergizedSmelter", 16, TileEntityEnergizedSmelter.class, true, false, true, Plane.HORIZONTAL, true),
-		TELEPORTER(MachineBlock.MACHINE_BLOCK_1, 11, "Teleporter", 13, TileEntityTeleporter.class, true, false, false, Predicates.alwaysFalse(), false),
+        ULTIMATE_FACTORY(MachineBlock.MACHINE_BLOCK_1, 8, "Factory", 59, TileEntityUltimateFactory.class, true, false, true, Plane.HORIZONTAL, true, Tier.FactoryTier.ULTIMATE),
+        METALLURGIC_INFUSER(MachineBlock.MACHINE_BLOCK_1, 9, "MetallurgicInfuser", 12, TileEntityMetallurgicInfuser.class, true, true, true, Plane.HORIZONTAL, false),
+		PURIFICATION_CHAMBER(MachineBlock.MACHINE_BLOCK_1, 10, "PurificationChamber", 15, TileEntityPurificationChamber.class, true, false, true, Plane.HORIZONTAL, true),
+		ENERGIZED_SMELTER(MachineBlock.MACHINE_BLOCK_1, 11, "EnergizedSmelter", 16, TileEntityEnergizedSmelter.class, true, false, true, Plane.HORIZONTAL, true),
 		ELECTRIC_PUMP(MachineBlock.MACHINE_BLOCK_1, 12, "ElectricPump", 17, TileEntityElectricPump.class, true, true, false, Plane.HORIZONTAL, false),
 		PERSONAL_CHEST(MachineBlock.MACHINE_BLOCK_1, 13, "PersonalChest", -1, TileEntityPersonalChest.class, true, true, false, Plane.HORIZONTAL, false),
 		CHARGEPAD(MachineBlock.MACHINE_BLOCK_1, 14, "Chargepad", -1, TileEntityChargepad.class, true, true, false, Plane.HORIZONTAL, false),
@@ -157,9 +158,12 @@ public class BlockStateMachine extends ExtendedBlockState
 		OREDICTIONIFICATOR(MachineBlock.MACHINE_BLOCK_3, 3, "Oredictionificator", 52, TileEntityOredictionificator.class, false, false, false, Plane.HORIZONTAL, true),
 		RESISTIVE_HEATER(MachineBlock.MACHINE_BLOCK_3, 4, "ResistiveHeater", 53, TileEntityResistiveHeater.class, true, false, false, Plane.HORIZONTAL, true),
 		FORMULAIC_ASSEMBLICATOR(MachineBlock.MACHINE_BLOCK_3, 5, "FormulaicAssemblicator", 56, TileEntityFormulaicAssemblicator.class, true, false, true, Plane.HORIZONTAL, true),
-		FUELWOOD_HEATER(MachineBlock.MACHINE_BLOCK_3, 6, "FuelwoodHeater", 58, TileEntityFuelwoodHeater.class, false, false, false, Plane.HORIZONTAL, true);
+		FUELWOOD_HEATER(MachineBlock.MACHINE_BLOCK_3, 6, "FuelwoodHeater", 58, TileEntityFuelwoodHeater.class, false, false, false, Plane.HORIZONTAL, true),
+		TELEPORTER(MachineBlock.MACHINE_BLOCK_3, 7, "Teleporter", 13, TileEntityTeleporter.class, true, false, false, Predicates.alwaysFalse(), false);
 
-		public MachineBlock typeBlock;
+
+
+        public MachineBlock typeBlock;
 		public int meta;
 		public String blockName;
 		public int guiId;
@@ -444,7 +448,7 @@ public class BlockStateMachine extends ExtendedBlockState
 				builder.append(facing.getName());
 			}
 			
-			if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+			if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
 			{
 				RecipeType recipe = state.getValue(recipeProperty);
 				

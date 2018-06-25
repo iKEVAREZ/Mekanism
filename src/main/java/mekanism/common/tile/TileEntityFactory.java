@@ -39,6 +39,7 @@ import mekanism.common.base.TileNetworkList;
 import mekanism.common.block.states.BlockStateMachine;
 import mekanism.common.block.states.BlockStateMachine.MachineType;
 import mekanism.common.capabilities.Capabilities;
+import mekanism.common.config.MekanismConfig.general;
 import mekanism.common.integration.computer.IComputerIntegration;
 import mekanism.common.network.PacketTileEntity.TileEntityMessage;
 import mekanism.common.recipe.RecipeHandler;
@@ -60,12 +61,15 @@ import mekanism.common.util.LangUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.StackUtils;
 import mekanism.common.util.StatUtils;
+import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -75,6 +79,9 @@ import javax.annotation.Nonnull;
 
 public class TileEntityFactory extends TileEntityMachine implements IComputerIntegration, ISideConfiguration, IGasHandler, ITubeConnection, ISpecialConfigData, ITierUpgradeable, ISustainedData
 {
+	/** Whether or not the FACTORY was detonated */
+	public boolean wasDetonated = false;
+
 	/** This Factory's tier. */
 	public FactoryTier tier;
 
@@ -101,6 +108,11 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 
 	/** How many recipe ticks have progressed. */
 	public int recipeTicks;
+
+	public int temperature = 23;
+	public static int maxTemperature = 475;
+	public int aoCoolant = 1000;
+	public static int maxCoolant = 16000;
 
 	/** This machine's recipe type. */
 	public RecipeType recipeType = RecipeType.SMELTING;
@@ -171,7 +183,7 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 	@Override
 	public boolean upgrade(BaseTier upgradeTier)
 	{
-		if(upgradeTier.ordinal() != tier.ordinal()+1 || tier == FactoryTier.ELITE)
+		if(upgradeTier.ordinal() != tier.ordinal()+1 || tier == FactoryTier.ULTIMATE)
 		{
 			return false;
 		}
@@ -420,6 +432,10 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 			{
 				inputSlots = new int[] {5, 6, 7, 8, 9, 10, 11};
 			}
+			else if(tier == FactoryTier.ULTIMATE)
+			{
+				inputSlots = new int[] {5, 6, 7, 8, 9, 10, 11, 12, 13};
+			}
 
 			for(int id : inputSlots)
 			{
@@ -554,7 +570,10 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 		{
 			return true;
 		}
-
+		else if(tier == FactoryTier.ULTIMATE && slotID >= 14 && slotID <= 22)
+		{
+			return true;
+		}
 		return false;
 	}
 
@@ -594,7 +613,17 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 				return recipeType.getAnyRecipe(itemstack, inventory.get(4), gasTank.getGasType(), infuseStored) != null;
 			}
 		}
-
+		else if(tier == FactoryTier.ULTIMATE)
+		{
+			if(slotID >= 14 && slotID <= 22)
+			{
+				return false;
+			}
+			else if(slotID >= 5 && slotID <= 13)
+			{
+				return recipeType.getAnyRecipe(itemstack, inventory.get(4), gasTank.getGasType(), infuseStored) != null;
+			}
+		}
 		if(slotID == 0)
 		{
 			return itemstack.getItem() == MekanismItems.SpeedUpgrade || itemstack.getItem() == MekanismItems.EnergyUpgrade;
@@ -621,6 +650,11 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 
 		return false;
 	}
+	public int getScaled(int height, int fval, int sval) {
+		return (fval*height / sval);
+	}
+
+
 
 	public int getScaledProgress(int i, int process)
 	{
@@ -640,6 +674,22 @@ public class TileEntityFactory extends TileEntityMachine implements IComputerInt
 	public int getScaledRecipeProgress(int i)
 	{
 		return recipeTicks*i / RECIPE_TICKS_REQUIRED;
+	}
+
+	public void detonate()
+	{
+		world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), general.factoryBlastRadius, true);
+		wasDetonated = true;
+	}
+
+	public int getActiveFieldsNumber() {
+		int ret = 0;
+		for (int i = 0; i >9; i++){
+			if (canOperate(5+i, 9+5+i)) {
+				ret++;
+			}
+		}
+		return 9;
 	}
 
 	public boolean canOperate(int inputSlot, int outputSlot)

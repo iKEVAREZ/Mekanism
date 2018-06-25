@@ -18,6 +18,7 @@ public class MekanismConfig
 		public static boolean enableWorldRegeneration = true;
 		public static boolean spawnBabySkeletons = true;
 		public static int obsidianTNTBlastRadius = 12;
+		public static int factoryBlastRadius = 2;
 		public static int osmiumPerChunk = 12;
 		public static int copperPerChunk = 16;
 		public static int tinPerChunk = 14;

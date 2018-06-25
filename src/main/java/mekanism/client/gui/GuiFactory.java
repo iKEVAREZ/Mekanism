@@ -107,6 +107,7 @@ public class GuiFactory extends GuiMekanism
 		displayInt = tileEntity.getScaledEnergyLevel(52);
 		drawTexturedModalRect(guiWidth + 165, guiHeight + 17 + 52 - displayInt, 176, 52 - displayInt, 4, displayInt);
 
+
 		int xOffset = tileEntity.tier == FactoryTier.BASIC ? 59 : (tileEntity.tier == FactoryTier.ADVANCED ? 
 			39 : 33);
 		int xDistance = tileEntity.tier == FactoryTier.BASIC ? 38 : (tileEntity.tier == FactoryTier.ADVANCED ? 
