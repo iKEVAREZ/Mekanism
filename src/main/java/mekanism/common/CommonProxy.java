@@ -57,6 +57,7 @@ import mekanism.common.inventory.container.ContainerSolarNeutronActivator;
 import mekanism.common.inventory.container.ContainerTeleporter;
 import mekanism.common.inventory.container.ContainerThermalEvaporationController;
 import mekanism.common.inventory.container.ContainerUpgradeManagement;
+import mekanism.common.inventory.container.ContainerFactoryUlt;
 import mekanism.common.item.ItemPortableTeleporter;
 import mekanism.common.network.PacketPortableTeleporter.PortableTeleporterMessage;
 import mekanism.common.tile.TileEntityAdvancedFactory;
@@ -108,6 +109,7 @@ import mekanism.common.tile.TileEntitySeismicVibrator;
 import mekanism.common.tile.TileEntitySolarNeutronActivator;
 import mekanism.common.tile.TileEntityTeleporter;
 import mekanism.common.tile.TileEntityThermalEvaporationController;
+import mekanism.common.tile.TileEntityUltimateFactory;
 import mekanism.common.tile.prefab.TileEntityAdvancedElectricMachine;
 import mekanism.common.tile.prefab.TileEntityContainerBlock;
 import mekanism.common.tile.prefab.TileEntityDoubleElectricMachine;
@@ -161,7 +163,8 @@ public class CommonProxy implements IGuiProvider
 		GameRegistry.registerTileEntity(TileEntityCrusher.class, "Crusher");
 		GameRegistry.registerTileEntity(TileEntityFactory.class, "SmeltingFactory");
 		GameRegistry.registerTileEntity(TileEntityAdvancedFactory.class, "AdvancedSmeltingFactory");
-		GameRegistry.registerTileEntity(TileEntityEliteFactory.class, "UltimateSmeltingFactory");
+		GameRegistry.registerTileEntity(TileEntityEliteFactory.class, "EliteSmeltingFactory");
+		GameRegistry.registerTileEntity(TileEntityUltimateFactory.class, "UltimateSmeltingFactory");
 		GameRegistry.registerTileEntity(TileEntityPurificationChamber.class, "PurificationChamber");
 		GameRegistry.registerTileEntity(TileEntityEnergizedSmelter.class, "EnergizedSmelter");
 		GameRegistry.registerTileEntity(TileEntityMetallurgicInfuser.class, "MetallurgicInfuser");
@@ -580,6 +583,8 @@ public class CommonProxy implements IGuiProvider
 				return new ContainerSecurityDesk(player.inventory, (TileEntitySecurityDesk)tileEntity);
 			case 58:
 				return new ContainerFuelwoodHeater(player.inventory, (TileEntityFuelwoodHeater)tileEntity);
+			case 59:
+				return new ContainerFactoryUlt(player.inventory, (TileEntityUltimateFactory)tileEntity);
 		}
 
 		return null;

@@ -33,6 +33,7 @@ import mekanism.client.gui.GuiElectrolyticSeparator;
 import mekanism.client.gui.GuiEnergizedSmelter;
 import mekanism.client.gui.GuiEnergyCube;
 import mekanism.client.gui.GuiEnrichmentChamber;
+import mekanism.client.gui.GuiFactoryUlt;
 import mekanism.client.gui.GuiFactory;
 import mekanism.client.gui.GuiFluidTank;
 import mekanism.client.gui.GuiFluidicPlenisher;
@@ -189,6 +190,7 @@ import mekanism.common.tile.TileEntitySeismicVibrator;
 import mekanism.common.tile.TileEntitySolarNeutronActivator;
 import mekanism.common.tile.TileEntityTeleporter;
 import mekanism.common.tile.TileEntityThermalEvaporationController;
+import mekanism.common.tile.TileEntityUltimateFactory;
 import mekanism.common.tile.prefab.TileEntityAdvancedElectricMachine;
 import mekanism.common.tile.prefab.TileEntityDoubleElectricMachine;
 import mekanism.common.tile.prefab.TileEntityElectricMachine;
@@ -245,8 +247,8 @@ public class ClientProxy extends CommonProxy
 	public static Map<String, ModelResourceLocation> machineResources = new HashMap<>();
 	public static Map<String, ModelResourceLocation> basicResources = new HashMap<>();
 	public static Map<String, ModelResourceLocation> transmitterResources = new HashMap<>();
-	
-	public static final String[] CUSTOM_RENDERS = new String[] {"fluid_tank", "bin_basic", "bin_advanced", "bin_elite", "bin_ultimate", 
+
+	public static final String[] CUSTOM_RENDERS = new String[] {"fluid_tank", "bin_basic", "bin_advanced", "bin_elite", "bin_ultimate",
 		"Jetpack", "FreeRunners", "AtomicDisassembler", "ScubaTank", "GasMask", "ArmoredJetpack", "Flamethrower", "personal_chest",
 		"solar_neutron_activator", "chemical_dissolution_chamber", "chemical_crystallizer", "seismic_vibrator", "security_desk",
 		"quantum_entangloporter", "resistive_heater", "EnergyCube", "digital_miner", "bin_creative"};
@@ -315,7 +317,8 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.registerTileEntity(TileEntityCrusher.class, "Crusher", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityFactory.class, "SmeltingFactory", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityAdvancedFactory.class, "AdvancedSmeltingFactory", new RenderConfigurableMachine<>());
-		ClientRegistry.registerTileEntity(TileEntityEliteFactory.class, "UltimateSmeltingFactory", new RenderConfigurableMachine<>());
+		ClientRegistry.registerTileEntity(TileEntityEliteFactory.class, "EliteSmeltingFactory", new RenderConfigurableMachine<>());
+		ClientRegistry.registerTileEntity(TileEntityUltimateFactory.class, "UltimateSmeltingFactory", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityPurificationChamber.class, "PurificationChamber", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityEnergizedSmelter.class, "EnergizedSmelter", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityMetallurgicInfuser.class, "MetallurgicInfuser", new RenderConfigurableMachine<>());
@@ -335,7 +338,7 @@ public class ClientProxy extends CommonProxy
 		ClientRegistry.registerTileEntity(TileEntityChemicalCrystallizer.class, "ChemicalCrystallizer", new RenderChemicalCrystallizer());
 		ClientRegistry.registerTileEntity(TileEntitySeismicVibrator.class, "SeismicVibrator", new RenderSeismicVibrator());
 		ClientRegistry.registerTileEntity(TileEntityPRC.class, "PressurizedReactionChamber", new RenderConfigurableMachine<>());
-		ClientRegistry.registerTileEntity(TileEntityFluidTank.class, "FluidTank", RenderFluidTank.INSTANCE);
+		ClientRegistry.registerTileEntity(TileEntityFluidTank.class, "FluidTank", new RenderFluidTank());
 		ClientRegistry.registerTileEntity(TileEntitySolarNeutronActivator.class, "SolarNeutronActivator", new RenderSolarNeutronActivator());
 		ClientRegistry.registerTileEntity(TileEntityFormulaicAssemblicator.class, "FormulaicAssemblicator", new RenderConfigurableMachine<>());
 		ClientRegistry.registerTileEntity(TileEntityResistiveHeater.class, "ResistiveHeater", new RenderResistiveHeater());
@@ -458,7 +461,7 @@ public class ClientProxy extends CommonProxy
 			String resource = "mekanism:" + type.getName();
 			RecipeType recipePointer = null;
 			
-			if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+			if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
 			{
 				recipePointer = RecipeType.values()[0];
 				resource = "mekanism:" + type.getName() + "_" + recipePointer.getName();
@@ -502,7 +505,7 @@ public class ClientProxy extends CommonProxy
 					machineResources.put(resource, model);
 					modelsToAdd.add(model);
 					
-					if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+					if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
 					{
 						if(recipePointer.ordinal() < RecipeType.values().length-1)
 						{
@@ -667,7 +670,7 @@ public class ClientProxy extends CommonProxy
             {
                 String resource = "mekanism:" + type.getName();
 
-                if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+                if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
                 {
                     RecipeType recipe = RecipeType.values()[((ItemBlockMachine)stack.getItem()).getRecipeType(stack)];
                     resource = "mekanism:" + type.getName() + "_" + recipe.getName();
@@ -936,6 +939,8 @@ public class ClientProxy extends CommonProxy
 				return new GuiSecurityDesk(player.inventory, (TileEntitySecurityDesk)tileEntity);
 			case 58:
 				return new GuiFuelwoodHeater(player.inventory, (TileEntityFuelwoodHeater)tileEntity);
+			case 59:
+				return new GuiFactoryUlt(player.inventory , (TileEntityUltimateFactory)tileEntity);
 		}
 		
 		return null;

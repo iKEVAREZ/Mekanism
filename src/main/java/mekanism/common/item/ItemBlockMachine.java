@@ -176,9 +176,9 @@ public class ItemBlockMachine extends ItemBlock implements IEnergizedItem, ISpec
 	{
 		MachineType type = MachineType.get(itemstack);
 		
-		if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+		if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
 		{
-			BaseTier tier = type == MachineType.BASIC_FACTORY ? BaseTier.BASIC : (type == MachineType.ADVANCED_FACTORY ? BaseTier.ADVANCED : BaseTier.ELITE);
+			BaseTier tier = type == MachineType.BASIC_FACTORY ? BaseTier.BASIC : (type == MachineType.ADVANCED_FACTORY ? BaseTier.ADVANCED : type == MachineType.ELITE_FACTORY ? BaseTier.ELITE : BaseTier.ULTIMATE);
 
             if(I18n.canTranslate("tile." + tier.getSimpleName() + RecipeType.values()[getRecipeType(itemstack)].getUnlocalizedName() + "Factory"))
             {
@@ -248,7 +248,7 @@ public class ItemBlockMachine extends ItemBlock implements IEnergizedItem, ISpec
 				}
 			}
 				
-			if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY)
+			if(type == MachineType.BASIC_FACTORY || type == MachineType.ADVANCED_FACTORY || type == MachineType.ELITE_FACTORY || type == MachineType.ULTIMATE_FACTORY)
 			{
 				list.add(EnumColor.INDIGO + LangUtils.localize("tooltip.recipeType") + ": " + EnumColor.GREY + RecipeType.values()[getRecipeType(itemstack)].getLocalizedName());
 			}

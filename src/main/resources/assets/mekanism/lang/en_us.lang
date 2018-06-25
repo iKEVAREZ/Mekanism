@@ -129,7 +129,6 @@ tile.MachineBlock.Factory.name=Factory
 tile.MachineBlock.MetallurgicInfuser.name=Metallurgic Infuser
 tile.MachineBlock.PurificationChamber.name=Purification Chamber
 tile.MachineBlock.EnergizedSmelter.name=Energized Smelter
-tile.MachineBlock.Teleporter.name=Teleporter
 tile.MachineBlock.ElectricPump.name=Electric Pump
 tile.MachineBlock.PersonalChest.name=Personal Chest
 tile.MachineBlock.Chargepad.name=Chargepad
@@ -162,6 +161,7 @@ tile.MachineBlock3.Oredictionificator.name=Oredictionificator
 tile.MachineBlock3.ResistiveHeater.name=Resistive Heater
 tile.MachineBlock3.FormulaicAssemblicator.name=Formulaic Assemblicator
 tile.MachineBlock3.FuelwoodHeater.name=Fuelwood Heater
+tile.MachineBlock3.Teleporter.name=Teleporter
 
 # Plastic
 tile.PlasticBlock.name=Plastic Block
