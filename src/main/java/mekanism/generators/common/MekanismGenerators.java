@@ -41,7 +41,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import buildcraft.api.fuels.BuildcraftFuelRegistry;
 import buildcraft.api.fuels.IFuel;
 
-@Mod(modid = "mekanismgenerators", name = "MekanismGenerators", version = "9.4.10", dependencies = "required-after:mekanism", guiFactory = "mekanism.generators.client.gui.GeneratorsGuiFactory", acceptedMinecraftVersions = "[1.12,1.13)")
+@Mod(modid = "mekanismgenerators", name = "MekanismGenerators", version = "9.4.11", dependencies = "required-after:mekanism", guiFactory = "mekanism.generators.client.gui.GeneratorsGuiFactory", acceptedMinecraftVersions = "[1.12,1.13)")
 @Mod.EventBusSubscriber()
 public class MekanismGenerators implements IModule
 {
@@ -52,7 +52,7 @@ public class MekanismGenerators implements IModule
 	public static MekanismGenerators instance;
 	
 	/** MekanismGenerators version number */
-	public static Version versionNumber = new Version(9, 4, 10);
+	public static Version versionNumber = new Version(9, 4, 13);
 	
 	public static MultiblockManager<SynchronizedTurbineData> turbineManager = new MultiblockManager<>("industrialTurbine");
 
@@ -104,6 +104,11 @@ public class MekanismGenerators implements IModule
 		proxy.registerSpecialTileEntities();
 		
 		addRecipes();
+
+		for(ItemStack ore : OreDictionary.getOres("dustGold"))
+		{
+			RecipeHandler.addMetallurgicInfuserRecipe(InfuseRegistry.get("CARBON"), 10, MekanismUtils.size(ore, 4), GeneratorsItems.Hohlraum.getEmptyItem());
+		}
 		
 		//Finalization
 		Mekanism.logger.info("Loaded MekanismGenerators module.");
@@ -123,11 +128,6 @@ public class MekanismGenerators implements IModule
 			}
 
 			BuildcraftFuelRegistry.fuel.addFuel(MekanismFluids.Ethene.getFluid(), (long)(240 * general.TO_RF / 20 * MjAPI.MJ), 40 * Fluid.BUCKET_VOLUME);
-		}
-		
-		for(ItemStack ore : OreDictionary.getOres("dustGold"))
-		{
-			RecipeHandler.addMetallurgicInfuserRecipe(InfuseRegistry.get("CARBON"), 10, MekanismUtils.size(ore, 4), GeneratorsItems.Hohlraum.getEmptyItem());
 		}
 	}
 	
