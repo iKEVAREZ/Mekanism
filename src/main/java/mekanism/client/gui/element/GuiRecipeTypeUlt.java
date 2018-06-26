@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class GuiRecipeTypeUlt extends GuiElement
 {
 
-	private int xRes = 38;
+	private int xRes = 0;
 	public TileEntityFactory tileEntity;
 
 	public GuiRecipeTypeUlt(IGuiWrapper gui, TileEntityFactory tile, ResourceLocation def)

@@ -27,7 +27,6 @@ public class ContainerFactoryUlt extends Container
 		addSlotToContainer(new Slot(tentity, 2, 218, 75+15));
 		addSlotToContainer(new Slot(tentity, 3, 218, 112+15));
 		addSlotToContainer(new Slot(tentity, 4, 7, 57));
-		addSlotToContainer(new Slot(tentity, 5, 181, 171));
 		
 			for(int i = 0; i < tileEntity.tier.processes; i++)
 			{

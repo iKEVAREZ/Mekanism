@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiRedstoneControlUlt extends GuiElement
 {
-	private int xRes = 38;
+	private int xRes = 0;
 	TileEntity tileEntity;
 
 	public GuiRedstoneControlUlt(IGuiWrapper gui, TileEntity tile, ResourceLocation def)
