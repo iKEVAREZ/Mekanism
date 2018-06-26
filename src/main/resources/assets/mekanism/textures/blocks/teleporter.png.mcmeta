@@ -16,7 +16,7 @@
                     }
                 },
                 {
-                    "block": "mekanism:machineblock",
+                    "block": "mekanism:machineblock3",
                     "predicate":
                     {
                         "type": "teleporter"
