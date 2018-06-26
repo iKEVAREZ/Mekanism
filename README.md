@@ -1,5 +1,18 @@
 [![Build Status](https://travis-ci.org/aidancbrady/Mekanism.svg?branch=master)](https://travis-ci.org/aidancbrady/Mekanism)
 
+# Warning before use version of mekanism from this branch #
+
+In this branch some blocks have changed metadata! Be carefully when you want to update Mekanism!
+If you change mekanism to version from this branch blocks listed below will be replaced on your existing world!
+
+List of blocks with changed metadata:
+
+- METALLURGIC_INFUSER: MACHINE_BLOCK_1:8 ---> CHANGED TO: MACHINE_BLOCK_1:9
+- PURIFICATION_CHAMBER: MACHINE_BLOCK_1:9 ---> CHANGED TO: MACHINE_BLOCK_1:10
+- ENERGIZED_SMELTER: MACHINE_BLOCK_1:10 ---> CHANGED TO: MACHINE_BLOCK_1:12
+- TELEPORTER: MACHINE_BLOCK_1:11 ---> CHANGED TO: MACHINE_BLOCK_3:7
+- ULTIMATE_FACTORY: ADDED TO THE MEKANISM ---> MACHINE_BLOCK_1:8
+
 # Mekanism for Minecraft 1.12 #
 
 [**Official Website**](http://aidancbrady.com/mekanism/)
